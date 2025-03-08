@@ -34,7 +34,7 @@ const farmSchema=new mongoose.Schema({
     
 })
 
-farmSchema.pre('save',async(next)=>{
+farmSchema.pre('save',async function(next){
     if(!this.isModified('password')){
         next()
     }else{
@@ -44,8 +44,10 @@ farmSchema.pre('save',async(next)=>{
     }
 })
 
-farmSchema.methods.comparepassword=async(pass)=>{
+farmSchema.methods.comparepassword=async function(pass){
     try{
+        // console.log(pass)
+         console.log(this.password)
           return await bcrypt.compare(pass,this.password)
     }catch(error){
          console.log('error in compare password',error)

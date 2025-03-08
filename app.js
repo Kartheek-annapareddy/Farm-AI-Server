@@ -4,6 +4,7 @@ const cors=require('cors')
 const bodyparser=require('body-parser')
 const router=require('./Routes/route')
 const createConnection=require('./model/connection')
+const cookiesParser=require('cookie-parser')
 
 dotenv.config();
 const port=process.env.PORT_NUMBER;
@@ -18,6 +19,8 @@ app.use(cors(
 ))
 
 createConnection();
+
+app.use(cookiesParser())
 
 app.use(bodyparser.json());
 
