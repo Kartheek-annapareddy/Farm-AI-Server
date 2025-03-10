@@ -96,7 +96,60 @@ tokenExpiredHandeling=async(req,res)=>{
 }
 
 
+getuserdetails=async(req,res)=>{
+   try{
 
-module.exports={createUser,loginUser,tokenExpiredHandeling}
+    const userEmail=req.user;
+    console.log(userEmail);
+    const userData = await User.findOne({email:userEmail.data});
+    if(!userData){
+        return res.status(401).json({
+          ok:false,
+          message:'some thing went wrong'
+        })
+    }else{
+       return res.status(200).json({
+          ok:true,
+          message:'user details fetched',
+          details:userData
+       })
+    }
+
+   }catch(error){
+     return res.status(500).json({
+        ok:false,
+        error:error.message
+     })
+   }
+}
+
+addcropdetails = async(req,res)=>{
+    try{
+        const {email}=req.user;
+        const {crop}=req.params;
+      const addedcrop=User.updateOne({email:email},{$push:{crop:crop}})
+
+      if(addedcrop.modifiedCount===0){
+        return res.status(401).json({
+            ok:false,
+            message:'check the format of data that is sent in params'
+        })
+      }else{
+        return res.status(201).json({
+            ok:true,
+            message:'data added sucessfully'
+        })
+      }
+       
+    }catch(error){
+     return res.status(500).json({
+        ok:false,
+        message:error.message
+     })
+    }
+}
+
+
+module.exports={createUser,loginUser,tokenExpiredHandeling,getuserdetails,addcropdetails}
 
 
