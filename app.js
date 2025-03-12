@@ -5,10 +5,16 @@ const bodyparser=require('body-parser')
 const router=require('./Routes/route')
 const createConnection=require('./model/connection')
 const cookiesParser=require('cookie-parser')
+const http=require('http');
+const webSocketSetUp=require('./Controller/aiinformation')
+
+const app=express();
+
+server=http.createServer(app)
 
 dotenv.config();
 const port=process.env.PORT_NUMBER;
-const app=express();
+
 
 app.use(cors(
     {
@@ -24,12 +30,15 @@ app.use(cookiesParser())
 
 app.use(bodyparser.json());
 
+webSocketSetUp(server)
 
 app.use('/Farm',router)
 
 
 
-app.listen(port,(err)=>{
+
+
+server.listen(port,(err)=>{
     if(err){
         console.log('error in server',err)
     }
@@ -37,3 +46,4 @@ app.listen(port,(err)=>{
         console.log('server is running...')
     }
 })
+

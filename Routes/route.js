@@ -2,7 +2,6 @@ const express=require('express')
 const userConnection=require('../Controller/user')
 const {acessesTokenverification,refreshToknverification}=require('../auth/authverify')
 const aiConnection=require('../Controller/aiInfo')
-
 const router=express.Router();
 
 
@@ -15,9 +14,8 @@ router.get('/refreshToken',refreshToknverification,userConnection.tokenExpiredHa
 
 router.get('/getuserdetails',acessesTokenverification,userConnection.getuserdetails)
 
-router.put("/addcrop/:crop",acessesTokenverification,userConnection.addcropdetails)
+router.put('/addcrop/:crop',acessesTokenverification,userConnection.addcropdetails)
 
-router.get('/aidata',aiConnection.getAiResponse)
 
 
 
