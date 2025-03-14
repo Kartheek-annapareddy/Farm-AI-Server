@@ -149,7 +149,16 @@ addcropdetails = async(req,res)=>{
     }
 }
 
+logOut=async(req,res)=>{
+   const data=req.user;
+    //  const token=req.cookies.refreshToken
+    res.clearCookie('acessesToken');
+    res.clearCookie('refreshToken')
+    res.status(201).json({ok:true,mssage:'user logged out sucessfully'})
+}
 
-module.exports={createUser,loginUser,tokenExpiredHandeling,getuserdetails,addcropdetails}
+
+
+module.exports={createUser,loginUser,tokenExpiredHandeling,getuserdetails,addcropdetails,logOut}
 
 
