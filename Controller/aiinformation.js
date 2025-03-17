@@ -30,7 +30,7 @@ function webSocketSetUp(server) {
                console.log(data)
    
                if (!data.message) {
-                   ws.send(JSON.stringify({ ok: false, message: 'message is missing' }))
+                   ws.send(JSON.stringify({ ok: false, message:'message is missing' }))
                }
                else {
                    const checkResponse = await axios.post(URL, {
@@ -49,7 +49,7 @@ function webSocketSetUp(server) {
                        });
    
                    const checkResult = checkResponse.data.choices[0].message.content.toLowerCase().trim();
-                     console.log('data',checkResult,'data')
+                    //  console.log(checkResult)
    
                    if (checkResult !== 'yes') {
                        ws.send(JSON.stringify({ ok: true, message: 'This question is out of my context' }))
