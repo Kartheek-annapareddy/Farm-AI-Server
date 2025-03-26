@@ -2,7 +2,7 @@ const express=require('express')
 const userConnection=require('../Controller/user')
 const {acessesTokenverification,refreshToknverification}=require('../auth/authverify')
 const router=express.Router();
-const {addImageincloudinary,getdetailsfromimage}=require('../Controller/imgAiInfo')
+const {upload,getdetailsfromimage}=require('../Controller/imgAiInfo')
 
 
 
@@ -16,10 +16,7 @@ router.get('/getuserdetails',acessesTokenverification,userConnection.getuserdeta
 
 router.put('/addcrop/:crop',acessesTokenverification,userConnection.addcropdetails)
 
-router.put('/image/upload',(req, res, next) => {
-    console.log('Before Multer Middleware',req.file);
-    next();
-},addImageincloudinary,getdetailsfromimage)
+router.post('/image/upload',upload.single('image'),getdetailsfromimage)
 
 router.get('/logout',userConnection.logOut)
 

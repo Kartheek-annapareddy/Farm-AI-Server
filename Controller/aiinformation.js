@@ -14,6 +14,11 @@ function webSocketSetUp(server) {
     const wss = new webSockets.Server({ server })
 
     wss.on('connection', (ws,req) => {
+        console.log(req.url)
+        if(req.url !=='/Farm/ws/getAiInfo'){
+            ws.send(JSON.stringify('invalid path'))
+            ws.close();
+        }
         // console.log(req.headers.cookie)
         const cookies=cookie.parse(req.headers.cookie)
         const token=cookies.acessesToken;

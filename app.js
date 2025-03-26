@@ -15,6 +15,7 @@ server=http.createServer(app)
 dotenv.config();
 const port=process.env.PORT_NUMBER;
 
+app.use(express.urlencoded({ extended: true }));
 
 app.use(cors(
     {
