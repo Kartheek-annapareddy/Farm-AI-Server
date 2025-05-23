@@ -10,7 +10,9 @@ async function createConnection(){
     }catch(error){
          console.log('error in connnecting',error)
          process.exit(1)
-    } 
+    }finally{
+        mongoose.connection.close()
+    }
 }
 
 module.exports=createConnection;
